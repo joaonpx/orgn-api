@@ -4,4 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/orgn
     username: admin
-    password: 
+    password:
+  batch:
+    jdbc:
+      initialize-schema: "always"
