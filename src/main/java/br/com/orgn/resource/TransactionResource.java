@@ -22,30 +22,35 @@ public class TransactionResource {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
+  @CrossOrigin(origins = "http://localhost:5173")
   public TransactionResponse saveTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
     return transactionService.save(transactionRequest);
   }
 
   @DeleteMapping("{id}")
   @ResponseStatus(HttpStatus.OK)
+  @CrossOrigin(origins = "http://localhost:5173")
   public void deleteTransaction(@PathVariable UUID id) {
     transactionService.delete(id);
   }
 
   @PutMapping
   @ResponseStatus(HttpStatus.OK)
+  @CrossOrigin(origins = "http://localhost:5173")
   public TransactionResponse updateTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
     return transactionService.update(transactionRequest);
   }
 
   @GetMapping("{id}")
   @ResponseStatus(HttpStatus.OK)
+  @CrossOrigin(origins = "http://localhost:5173")
   public TransactionResponse getTransaction(@PathVariable UUID id) {
     return transactionService.findById(id);
   }
 
-  @GetMapping("/all")
+  @GetMapping()
   @ResponseStatus(HttpStatus.OK)
+  @CrossOrigin(origins = "http://localhost:5173")
   public Page<TransactionResponse> getTransactions(@PageableDefault(size = 5, page = 0) Pageable pageable) {
     return transactionService.findAll(pageable);
   }
