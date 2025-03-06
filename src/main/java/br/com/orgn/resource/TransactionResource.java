@@ -49,7 +49,7 @@ public class TransactionResource {
 
   @GetMapping()
   @ResponseStatus(HttpStatus.OK)
-  public Page<TransactionResponse> getTransactions(@PageableDefault(size = 5, page = 0) Pageable pageable) {
+  public Page<TransactionResponse> getTransactions(@PageableDefault(size = 5) Pageable pageable) {
     return transactionService.findAll(pageable);
   }
 }

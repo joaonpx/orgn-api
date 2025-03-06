@@ -1,7 +1,6 @@
 package br.com.orgn.service;
 
 import br.com.orgn.entity.Balance;
-import br.com.orgn.entity.Transaction;
 import br.com.orgn.entity.dto.TransactionResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class BalanceService {
     Float incomes = transactions.stream()
             .map(TransactionResponse::amount)
             .filter(amount -> amount > 0)
-            .reduce(0f, Float::sum);;
+            .reduce(0f, Float::sum);
     Float expenses = transactions.stream()
             .map(TransactionResponse::amount)
             .filter(amount -> amount < 0)
