@@ -9,11 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/transactions")
 public class TransactionResource {
 
@@ -22,35 +24,31 @@ public class TransactionResource {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  @CrossOrigin(origins = "http://localhost:5173")
   public TransactionResponse saveTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
     return transactionService.save(transactionRequest);
   }
 
   @DeleteMapping("{id}")
-  @ResponseStatus(HttpStatus.OK)
-  @CrossOrigin(origins = "http://localhost:5173")
-  public void deleteTransaction(@PathVariable UUID id) {
+  public ResponseEntity<Void> deleteTransaction(@PathVariable UUID id) {
     transactionService.delete(id);
+
+    return ResponseEntity.noContent().build();
   }
 
   @PutMapping
   @ResponseStatus(HttpStatus.OK)
-  @CrossOrigin(origins = "http://localhost:5173")
   public TransactionResponse updateTransaction(@RequestBody @Valid TransactionRequest transactionRequest) {
     return transactionService.update(transactionRequest);
   }
 
   @GetMapping("{id}")
   @ResponseStatus(HttpStatus.OK)
-  @CrossOrigin(origins = "http://localhost:5173")
   public TransactionResponse getTransaction(@PathVariable UUID id) {
     return transactionService.findById(id);
   }
 
   @GetMapping()
   @ResponseStatus(HttpStatus.OK)
-  @CrossOrigin(origins = "http://localhost:5173")
   public Page<TransactionResponse> getTransactions(@PageableDefault(size = 5, page = 0) Pageable pageable) {
     return transactionService.findAll(pageable);
   }

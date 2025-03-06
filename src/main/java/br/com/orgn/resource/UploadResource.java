@@ -9,11 +9,13 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/upload")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UploadResource {
 
   @Autowired
@@ -26,6 +28,7 @@ public class UploadResource {
   private BatchConfiguration batchConfiguration;
 
   @PostMapping
+  @ResponseStatus(HttpStatus.OK)
   public void upload(@RequestParam("file") MultipartFile file) throws Exception {
     Resource resource = new ByteArrayResource(file.getBytes());
 
